@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: prod
+  http-pool:
+    # 连接池最大连接数
+    max-total: 3000
+    # 每个rount请求的最大连接数
+    default-max-per-route: 20
+    # 空闲多长时间（毫秒）来校验连接的有效性
+    validate-after-inactivity: 2000
+    # 建立连接的最大超时时间（毫秒）
+    connect-timeout: 10000
+    # 获取连接的最大超时时间（毫秒）
+    connection-request-timeout: 20000
+    # 与服务端保持连接的最大时间（毫秒）
+    socket-timeout: 300000
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+    # Quartz 的配置，对应 QuartzProperties 配置类
+  quartz:
+    job-store-type: memory # Job 存储器类型。默认为 memory 表示内存，可选 jdbc 使用数据库。
+    auto-startup: true # Quartz 是否自动启动
+    startup-delay: 0 # 延迟 N 秒启动
+    wait-for-jobs-to-complete-on-shutdown: true # 应用关闭时，是否等待定时任务执行完成。默认为 false ，建议设置为 true
+    overwrite-existing-jobs: false # 是否覆盖已有 Job 的配置
+    properties: # 添加 Quartz Scheduler 附加属性
+      org:
+        quartz:
+          threadPool:
+            threadCount: 25 # 线程池大小。默认为 10 。
+            threadPriority: 5 # 线程优先级
+            class: org.quartz.simpl.SimpleThreadPool # 线程池类型
+
+logging:
+  config:
+    classpath: loggback.xml
+  level:
+    root: INFO
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+    map-underscore-to-camel-case: true
+    # 该配置就是将带有下划线的表字段映射为驼峰格式的实体类属性
+

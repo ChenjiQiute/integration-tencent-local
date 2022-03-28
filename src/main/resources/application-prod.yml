@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root
+    password: psc@2021
+    url: jdbc:mysql://rm-uf65e305t797ul1b2.mysql.rds.aliyuncs.com/integration?characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  kafka:
+    bootstrap-servers: alikafka-pre-cn-7pp2mb36k00c-1-vpc.alikafka.aliyuncs.com:9092,alikafka-pre-cn-7pp2mb36k00c-2-vpc.alikafka.aliyuncs.com:9092,alikafka-pre-cn-7pp2mb36k00c-3-vpc.alikafka.aliyuncs.com:9092
+    replication: 1
+    # 消费者
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    # 生产者
+    producer:
+      ack: -1
+      client-id: kafka-producer
+      batch-size: 5
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

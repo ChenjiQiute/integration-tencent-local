@@ -1,0 +1,43 @@
+spring:
+  redis:
+    password: pscsoft@2021
+    cluster:
+      nodes: 192.168.100.181:6380,192.168.100.181:6381,192.168.100.184:6380,192.168.100.184:6381,192.168.100.66:6380,192.168.100.66:6381
+      max-redirects: 3
+  kafka:
+    bootstrap-servers: 192.168.100.181:9092,192.168.100.184:9092,192.168.100.66:9092
+    replication: 1
+    # 消费者
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    # 生产者
+    producer:
+      ack: -1
+      client-id: kafka-producer
+      batch-size: 5
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  data:
+    mongodb:
+      uri: mongodb://register:psc%402021@192.168.100.181:27017,192.168.100.184:27017/register?readPreference=secondary&write=1&replicaSet=dm
+      option:
+        socket-keep-alive: true
+        max-connection-idle-time: 60000
+    cloud:
+      zookeeper:
+        connect-string: 192.168.100.181:2181,192.168.100.184:2181,192.168.100.66:2181
+        #开启标志
+        enabled: true
+        #命名空间，被称为ZNode
+        namespace: register
+        #会话超时时间
+        sessionTimeoutMs: 3000
+        #连接超时时间
+        connectionTimeoutMs: 10000
+        #最大重试次数
+        maxRetries: 3
+        #初始休眠时间
+        baseSleepTimeMs: 1000

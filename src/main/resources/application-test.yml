@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root
+    password: Welcome@123
+    url: jdbc:mysql://192.168.100.224:3306/integration?characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  kafka:
+    bootstrap-servers: 192.168.100.168:9092,192.168.100.195:9092,192.168.100.196:9092,192.168.100.69:9092,192.168.100.245:9092,192.168.100.139:9092
+    replication: 1
+    # 消费者
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    # 生产者
+    producer:
+      ack: -1
+      client-id: kafka-producer
+      batch-size: 5
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
